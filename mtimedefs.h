@@ -1,6 +1,6 @@
-#ifndef	_MTIMEDEFS_H
+#ifndef _MTIMEDEFS_H
 
-# define _MTIMEDEFS_H	1
+#define _MTIMEDEFS_H 1
 
 #define SECS_PER_MINUTE 60
 #define SECS_PER_HOUR   (60 * SECS_PER_MINUTE)
@@ -9,12 +9,12 @@
 #define SECS_PER_YEAR   (668.5991 * SECS_PER_DAY)
 #else
 #define SECS_PER_YEAR   (686.97964 * 86400)
-#end
+#endif
 
 /* Nonzero if YEAR is a leap year (every 4 years,
    except every 100th isn't, and every 400th is).  */
-# define __misleap(year)	\
-  ((year) % 2 == 1 || ((year) % 10 == 0)
+#define __isleap(year) ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0))
+#define __misleap(year) ((year) % 2 == 1 || ((year) % 10 == 0))
 
 # define HERE_D_T_FMT "%a %b %e %H:%M:%S %Y"
 # define HERE_D_FMT "%m/%d/%y"
@@ -52,6 +52,5 @@ static const unsigned short int __m_mon_yday[2][25] =
     /* Leap years.  */
     { 0, 28, 56, 84, 112, 140, 167, 195, 223, 251, 279, 307, 334, 362, 390, 418, 446, 474, 501, 529, 557, 585, 613, 641, 669 },
   };
-
 
 #endif /* <mtimedefs.h> not already included.  */

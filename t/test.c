@@ -3,11 +3,11 @@
 #include "mtime.h"
 
 int main() {
-  time_t t;
+  time_t t, tt;
   struct tm tmbuf;
 
   t = 0;
-  printf("T:[%d]\n\n", t);
+  printf("T:[%d]\n\n", (int)t);
 
   gmtime_r(&t, &tmbuf);
   printf("gmtime:    tm_sec[%2.2d]  tm_min[%2.2d]  tm_hour[%2.2d]  tm_mday[%2.2d]  tm_mon[%2.2d]  tm_year[%3.3d]  tm_wday[%1.1d]  tm_yday[%3.3d]  tm_isdst[%d]\n",
@@ -23,8 +23,8 @@ int main() {
 
   printf("--------------------------------------------------\n");
 
-  t = 1149649200;
-  printf("T:[%d]\n\n", t);
+  t = 225948360;
+  printf("T:[%d]\n\n", (int)t);
 
   gmtime_r(&t, &tmbuf);
   printf("gmtime:    tm_sec[%2.2d]  tm_min[%2.2d]  tm_hour[%2.2d]  tm_mday[%2.2d]  tm_mon[%2.2d]  tm_year[%3.3d]  tm_wday[%1.1d]  tm_yday[%3.3d]  tm_isdst[%d]\n",
@@ -38,8 +38,8 @@ int main() {
 
   printf("--------------------------------------------------\n");
 
-  t = 225948360;
-  printf("T:[%d]\n\n", t);
+  t = 1149649200;
+  printf("T:[%d]\n\n", (int)t);
 
   gmtime_r(&t, &tmbuf);
   printf("gmtime:    tm_sec[%2.2d]  tm_min[%2.2d]  tm_hour[%2.2d]  tm_mday[%2.2d]  tm_mon[%2.2d]  tm_year[%3.3d]  tm_wday[%1.1d]  tm_yday[%3.3d]  tm_isdst[%d]\n",
@@ -54,7 +54,7 @@ int main() {
   printf("--------------------------------------------------\n");
 
   time(&t);
-  printf("T:[%d]\n\n", t);
+  printf("T:[%d]\n\n", (int)t);
 
   gmtime_r(&t, &tmbuf);
   printf("gmtime:    tm_sec[%2.2d]  tm_min[%2.2d]  tm_hour[%2.2d]  tm_mday[%2.2d]  tm_mon[%2.2d]  tm_year[%3.3d]  tm_wday[%1.1d]  tm_yday[%3.3d]  tm_isdst[%d]\n",
@@ -75,8 +75,21 @@ int main() {
 
   printf("--------------------------------------------------\n");
 
+  time(&t);
+  char buffer[32];
+  for(tt = t; tt < t+86400; tt += 1799) {
+    m_offtime(&tt, 0, &tmbuf);
+    mstrftime(buffer, 32, "%H:%M:%S %a %e %b '%y", &tmbuf);
+    printf("           %s  /  ", buffer);
+    localtime_r(&tt, &tmbuf);
+    strftime(buffer, 32, "%H:%M:%S %a %e %b '%y", &tmbuf);
+    printf("%s\n", buffer);
+  }
+
+  printf("--------------------------------------------------\n");
+
   for(t = 1149663262; t < 1149665667; t+= 1) {
-    printf(" %d: %s  %s", t, mtime(&t), ctime(&t));
+    printf(" %d: %s  %s", (int)t, mtime(&t), ctime(&t));
   }
 
   printf("--------------------------------------------------\n");

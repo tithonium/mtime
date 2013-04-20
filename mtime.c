@@ -5,9 +5,7 @@
 #include <time.h>
 #include "mtime.h"
 
-char *
-mtime (const time_t *t)
-{
-  return masctime (mlocaltime (t));
+char *mtime (const time_t *t) {
+  return masctime(mlocaltime(t));
 }
 

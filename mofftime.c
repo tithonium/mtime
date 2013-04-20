@@ -4,7 +4,7 @@
 
 #include <errno.h>
 #include <time.h>
-#include "mtime.h"
+#include "mofftime.h"
 #include "mtimedefs.h"
 
 #include <stdio.h>
@@ -53,7 +53,7 @@ m_offtime (t, offset, tp)
 #define DIV(a, b) ((a) / (b) - ((a) % (b) < 0))
 #define LEAPS_THRU_END_OF(y) (DIV (y, 2) + DIV (y, 10) - (y % 2 > 0))
 
-  while (days < 0 || days >= (__isleap (y) ? 669 : 668))
+  while (days < 0 || days >= (__misleap(y) ? 669 : 668))
     {
       /* Guess a corrected year, assuming 668 days per year.  */
       long int yg = y + days / 668 - (days % 668 < 0);
@@ -72,7 +72,7 @@ m_offtime (t, offset, tp)
       return NULL;
     }
   tp->tm_yday = days;
-  ip = __m_mon_yday[__isleap(y)];
+  ip = __m_mon_yday[__misleap(y)];
   for (y = 23; days < (long int) ip[y]; --y)
     continue;
   days -= ip[y];

@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <time.h>
-#include "mtime.h"
+#include "masctime.h"
 #include "mtimedefs.h"
 
 static const char format[]     = "%.3s %.3s%3d %.2d:%.2d:%.2d %d";
@@ -13,19 +13,14 @@ static char result[              3+1+ 3+1+20+1+20+1+20+1+20+1+20+1];
 
 /* Returns a string of the form "Day Mon dd hh:mm:ss yyyy\n"
    which is the representation of TP in that form.  */
-char *
-masctime (const struct tm *tp)
-{
-  return masctime_r (tp, result);
+char *masctime (const struct tm *tp) {
+  return masctime_r(tp, result);
 }
 
-char *
-masctime_r (const struct tm *tp, char *buf)
-{
-  if (tp == NULL)
-    {
-      return NULL;
-    }
+char *masctime_r (const struct tm *tp, char *buf) {
+  if (tp == NULL) {
+    return NULL;
+  }
 
   if(tp->tm_hour >= 24) {
     if (sprintf (buf, slipformat,

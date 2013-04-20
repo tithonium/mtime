@@ -2,8 +2,6 @@
    Derived from time/ctime.c from glibc
  */
 
-#include "mtime.h"
-
 /* Compute the day of the week.  */
 static void
 day_of_the_week (struct tm *tm)
